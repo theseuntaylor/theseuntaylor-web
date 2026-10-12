@@ -96,7 +96,7 @@ fun ArcadePage() {
                         .backgroundColor(SiteColors.night)
                         .padding(0.9.cssRem)
                         .borderRadius(1.25.cssRem)
-                        .boxShadow(offsetY = 30.px, blurRadius = 60.px, color = SiteColors.accent.toRgb().copyf(alpha = 0.25f))
+                        .boxShadow(offsetY = 30.px, blurRadius = 60.px, color = SiteColors.accentFixed.toRgb().copyf(alpha = 0.25f))
                         .toAttrs()
                 ) {
                     Iframe(attrs = {
@@ -118,7 +118,7 @@ fun ArcadePage() {
                     })
                     Row(Modifier.fillMaxWidth().padding { top(0.75.cssRem) }.justifyContent(JustifyContent.SpaceBetween)) {
                         SpanText("● ● ●", Modifier.color(SiteColors.green).fontSize(0.7.cssRem).letterSpacing(0.3.em))
-                        Link(ArcadeAppPath, "full screen ↗", NavLinkStyle.toModifier().color(SiteColors.paper).fontSize(0.8.cssRem).textAlign(TextAlign.End))
+                        Link(ArcadeAppPath, "full screen ↗", NavLinkStyle.toModifier().color(SiteColors.onDark).fontSize(0.8.cssRem).textAlign(TextAlign.End))
                     }
                 }
             }

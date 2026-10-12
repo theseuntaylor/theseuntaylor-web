@@ -18,3 +18,6 @@ kotlin-js-store
 # E2E
 node_modules
 e2e/artifacts
+
+# Machine-specific
+local.properties

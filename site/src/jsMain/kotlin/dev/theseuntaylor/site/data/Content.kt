@@ -10,7 +10,7 @@ object Me {
     const val githubLabel = "github.com/theseuntaylor"
 
     /** Shown in the connect section with a live local clock. Leave null to hide it. */
-    val location: Location? = null
+    val location: Location? = Location("London, UK", "🇬🇧", "Europe/London")
 
     val intro = listOf(
         "Solomon builds apps you can tap. Mostly Kotlin and Jetpack Compose these days, with a growing love " +
@@ -36,6 +36,14 @@ class Project(
 )
 
 val featuredProjects = listOf(
+    Project(
+        title = "theseuntaylor.dev",
+        summary = "This site. A Kobweb portfolio with an arcade of my games running as Compose Multiplatform " +
+            "compiled to WebAssembly, sharing Kotlin with the mobile apps.",
+        stack = listOf("Kotlin", "Kobweb", "Compose Multiplatform", "Wasm"),
+        href = "https://github.com/theseuntaylor/theseuntaylor-web",
+        emoji = "🕹️",
+    ),
     Project(
         title = "Hexo",
         summary = "Real-time multiplayer Tic-Tac-Toe with an AI that goes from Easy to Devilish.",

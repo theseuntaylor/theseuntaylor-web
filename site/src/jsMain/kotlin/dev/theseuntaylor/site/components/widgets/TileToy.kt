@@ -62,7 +62,7 @@ fun TileToy(modifier: Modifier = Modifier) {
             val lit = index in ambient || index in pinned || index == hovered
             val color = when {
                 index in pinned -> SiteColors.accent
-                lit -> if (index % 3 == 0) SiteColors.green else SiteColors.accent.toRgb().copyf(alpha = 0.75f)
+                lit -> if (index % 3 == 0) SiteColors.green else SiteColors.accentFixed.toRgb().copyf(alpha = 0.75f)
                 else -> SiteColors.hairline
             }
             Div(

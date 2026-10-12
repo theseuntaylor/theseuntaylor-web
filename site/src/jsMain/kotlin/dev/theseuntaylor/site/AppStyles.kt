@@ -21,7 +21,12 @@ import org.jetbrains.compose.web.css.*
 @InitSilk
 fun initSiteStyles(ctx: InitSilkContext) {
     ctx.stylesheet.registerStyle("html") {
-        cssRule(CSSMediaQuery.MediaFeature("prefers-reduced-motion", StylePropertyValue("no-preference"))) {
+        cssRule(
+            CSSMediaQuery.MediaFeature(
+                "prefers-reduced-motion",
+                StylePropertyValue("no-preference")
+            )
+        ) {
             Modifier.scrollBehavior(ScrollBehavior.Smooth)
         }
     }
@@ -35,8 +40,17 @@ fun initSiteStyles(ctx: InitSilkContext) {
             .backgroundColor(SiteColors.paper)
             .styleModifier { property("-webkit-font-smoothing", "antialiased") }
     }
-    ctx.stylesheet.registerStyleBase("::selection") { Modifier.backgroundColor(SiteColors.accent).color(SiteColors.paper) }
-    ctx.stylesheet.registerStyleBase("[id]") { Modifier.styleModifier { property("scroll-margin-top", "6rem") } }
+    ctx.stylesheet.registerStyleBase("::selection") {
+        Modifier.backgroundColor(SiteColors.accent).color(SiteColors.paper)
+    }
+    ctx.stylesheet.registerStyleBase("[id]") {
+        Modifier.styleModifier {
+            property(
+                "scroll-margin-top",
+                "6rem"
+            )
+        }
+    }
 
     // Scroll reveal: elements start slightly low and transparent, and Reveal() adds `.in` once they're on screen.
     ctx.stylesheet.registerStyle(".reveal") {
@@ -45,15 +59,30 @@ fun initSiteStyles(ctx: InitSilkContext) {
                 .opacity(0)
                 .translateY(28.px)
                 .transition(
-                    Transition.of("opacity", 900.ms, TransitionTimingFunction.cubicBezier(0.2, 0.7, 0.2, 1.0)),
-                    Transition.of("transform", 900.ms, TransitionTimingFunction.cubicBezier(0.2, 0.7, 0.2, 1.0)),
+                    Transition.of(
+                        "opacity",
+                        900.ms,
+                        TransitionTimingFunction.cubicBezier(0.2, 0.7, 0.2, 1.0)
+                    ),
+                    Transition.of(
+                        "transform",
+                        900.ms,
+                        TransitionTimingFunction.cubicBezier(0.2, 0.7, 0.2, 1.0)
+                    ),
                 )
         }
-        cssRule(CSSMediaQuery.MediaFeature("prefers-reduced-motion", StylePropertyValue("reduce"))) {
+        cssRule(
+            CSSMediaQuery.MediaFeature(
+                "prefers-reduced-motion",
+                StylePropertyValue("reduce")
+            )
+        ) {
             Modifier.opacity(1).styleModifier { property("transform", "none") }
         }
     }
-    ctx.stylesheet.registerStyleBase(".reveal.in") { Modifier.opacity(1).styleModifier { property("transform", "none") } }
+    ctx.stylesheet.registerStyleBase(".reveal.in") {
+        Modifier.opacity(1).styleModifier { property("transform", "none") }
+    }
 }
 
 /** The huge lowercase serif headings ("work", "arcade", "photography"). */
@@ -63,7 +92,8 @@ val DisplayHeadingStyle = CssStyle {
             .fontFamily(SerifFont, "Georgia", "serif")
             .fontWeight(400)
             .color(SiteColors.accent)
-            .fontSize(4.25.cssRem)
+            // Scales with the screen so long words like "photography" never spill past a phone's edge.
+            .styleModifier { property("font-size", "clamp(2.5rem, 13.5vw, 4.25rem)") }
             .lineHeight(1.0)
             .letterSpacing((-0.02).em)
             .margin(0.px, 0.px, 2.5.cssRem, 0.px)
@@ -106,8 +136,28 @@ val MutedTextStyle = CssStyle.base { Modifier.color(SiteColors.inkSoft).fontSize
 
 /** Content column: generous side space on desktop, a 16px-ish gutter on phones, room for the vertical wordmark. */
 val ContainerStyle = CssStyle {
-    base { Modifier.fillMaxWidth().padding { leftRight(1.25.cssRem) }.margin { leftRight(autoLength) } }
+    base {
+        Modifier.fillMaxWidth().padding { leftRight(1.25.cssRem) }.margin { leftRight(autoLength) }
+    }
     Breakpoint.MD { Modifier.maxWidth(72.cssRem).padding { leftRight(4.5.cssRem) } }
+}
+
+/** Space kept clear on each side of the page on wider screens; the right one holds the vertical wordmark line. */
+const val EdgeGutter = "4.5rem"
+
+/**
+ * Wide colour blocks (the name panel, the arcade band). Edge to edge on phones; on wider screens they're inset by the
+ * same gutter on both sides, so the wordmark line never runs across them and the page stays balanced.
+ */
+val FullBleedStyle = CssStyle {
+    base { Modifier.fillMaxWidth() }
+    Breakpoint.MD {
+        Modifier.styleModifier {
+            property("width", "calc(100% - 2 * $EdgeGutter)")
+            property("margin-left", EdgeGutter)
+            property("margin-right", EdgeGutter)
+        }
+    }
 }
 
 val SectionStyle = CssStyle {
@@ -124,7 +174,10 @@ val ListRowStyle = CssStyle {
             .borderBottom(1.px, LineStyle.Solid, SiteColors.hairline)
             .color(SiteColors.ink)
             .textDecorationLine(TextDecorationLine.None)
-            .transition(Transition.of("padding", 300.ms, TransitionTimingFunction.EaseOut), Transition.of("color", 200.ms))
+            .transition(
+                Transition.of("padding", 300.ms, TransitionTimingFunction.EaseOut),
+                Transition.of("color", 200.ms)
+            )
     }
     hover { Modifier.padding { left(0.75.cssRem) }.color(SiteColors.accent) }
 }

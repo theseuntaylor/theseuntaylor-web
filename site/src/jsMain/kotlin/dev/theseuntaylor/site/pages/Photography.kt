@@ -36,6 +36,7 @@ import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.Video
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.KeyboardEvent
 
@@ -111,7 +112,7 @@ private fun Lightbox(all: List<Photo>, index: Int, onIndexChange: (Int) -> Unit,
             .position(Position.Fixed)
             .top(0.px).right(0.px).bottom(0.px).left(0.px)
             .zIndex(30)
-            .backgroundColor(SiteColors.paper.toRgb().copyf(alpha = 0.97f))
+            .styleModifier { property("background", "color-mix(in srgb, var(--paper) 97%, transparent)") }
             .padding(1.25.cssRem)
             .onClick { onClose() }
             .attrsModifier { attr("role", "dialog"); attr("aria-label", photo.title) },
@@ -122,7 +123,18 @@ private fun Lightbox(all: List<Photo>, index: Int, onIndexChange: (Int) -> Unit,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box(Modifier.fillMaxWidth().maxHeight(78.vh).styleModifier { property("aspect-ratio", "${photo.width} / ${photo.height}") }) {
-                if (photo.src != null) {
+                if (photo.video != null) {
+                    // Opened deliberately, so this one plays with sound and controls.
+                    Video(attrs = {
+                        attr("src", photo.videoHd ?: photo.video)
+                        photo.src?.let { attr("poster", it) }
+                        attr("controls", "")
+                        attr("autoplay", "")
+                        attr("playsinline", "")
+                        attr("data-lightbox-video", "")
+                        style { width(100.percent); height(100.percent); property("object-fit", "contain") }
+                    })
+                } else if (photo.src != null) {
                     Image(photo.src, photo.title, Modifier.fillMaxSize().objectFit(ObjectFit.Contain))
                 } else {
                     PhotoFrame(photo, Modifier.fillMaxSize())

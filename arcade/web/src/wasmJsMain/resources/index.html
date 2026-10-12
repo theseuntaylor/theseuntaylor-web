@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solomon's Arcade</title>
+    <style>
+        html, body { margin: 0; height: 100%; background: #0B0816; overflow: hidden; }
+        #boot {
+            position: fixed; inset: 0; display: grid; place-items: center;
+            color: #3DDC84; font: 600 14px/1 ui-monospace, "Fira Code", monospace; letter-spacing: .2em;
+        }
+        #boot span { animation: blink 1s steps(2) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+    <script type="application/javascript" src="arcade.js"></script>
+</head>
+<body>
+    <div id="boot"><span>INSERT COIN…</span></div>
+</body>
+</html>

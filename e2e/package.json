@@ -1,0 +1,8 @@
+{
+  "name": "theseuntaylor-web-e2e",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "playwright": "1.61.0"
+  }
+}

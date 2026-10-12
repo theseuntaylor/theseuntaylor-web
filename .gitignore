@@ -1,0 +1,20 @@
+# General ignores
+.DS_Store
+build
+out
+kotlin-js-store
+
+# IntelliJ ignores
+*.iml
+/*.ipr
+.idea
+
+# Gradle ignores
+.gradle
+
+# Kotlin ignores
+.kotlin
+
+# E2E
+node_modules
+e2e/artifacts

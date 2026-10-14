@@ -22,6 +22,7 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
+import com.varabyte.kobweb.silk.components.icons.fa.FaGooglePlay
 import com.varabyte.kobweb.silk.components.icons.fa.FaLocationDot
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
@@ -324,7 +325,7 @@ private fun PhotographyTeaser() {
 @Composable
 private fun ConnectRow(icon: @Composable () -> Unit, label: String, href: String? = null) {
     Row(
-        Modifier.gap(0.9.cssRem).padding { topBottom(0.9.cssRem) }.borderBottom(1.px, LineStyle.Solid, SiteColors.hairline),
+        Modifier.gap(0.9.cssRem).padding { topBottom(0.6.cssRem) }.attrsModifier { attr("data-connect-row", "") },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Span(Modifier.color(SiteColors.accent).toAttrs()) { icon() }
@@ -347,6 +348,7 @@ private fun Connect() {
                     H3(SerifTitleStyle.toModifier().margin { bottom(1.cssRem) }.toAttrs()) { Text("Get in touch") }
                     ConnectRow({ FaEnvelope() }, Me.email, "mailto:${Me.email}")
                     ConnectRow({ FaGithub() }, Me.githubLabel, Me.github)
+                    ConnectRow({ FaGooglePlay() }, Me.googlePlayLabel, Me.googlePlay)
                 }
                 // On wider screens the location and time live on the right edge (see Nav); phones get them here.
                 Me.location?.let { location ->

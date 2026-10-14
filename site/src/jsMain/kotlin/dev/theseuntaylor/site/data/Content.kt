@@ -8,6 +8,8 @@ object Me {
     const val email = "seun.gtaylor@gmail.com"
     const val github = "https://github.com/theseuntaylor"
     const val githubLabel = "github.com/theseuntaylor"
+    const val googlePlay = "https://play.google.com/store/apps/developer?id=George-Taylor+Solomon"
+    const val googlePlayLabel = "Apps on Google Play"
 
     /** Shown in the connect section with a live local clock. Leave null to hide it. */
     val location: Location? = Location("London, UK", "🇬🇧", "Europe/London")
@@ -65,6 +67,7 @@ val featuredProjects = listOf(
         summary = "A Simon-style memory game across 3×3, 4×4 and 5×5 grids, with lives, streaks and a leaderboard.",
         stack = listOf("Kotlin", "Compose"),
         href = "https://github.com/theseuntaylor/StackBoxes",
+        badge = "Google Play",
         emoji = "🟩",
     ),
     Project(

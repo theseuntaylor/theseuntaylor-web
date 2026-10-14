@@ -84,6 +84,8 @@ try {
     const rows = page.locator("#work a h3");
     const projectCount = await rows.count();
     expect(projectCount >= 4, `home: work list shows ${projectCount} projects`);
+    const onPlay = await page.locator("#work a", { hasText: "Google Play" }).locator("h3").allTextContents();
+    expect(["Hexo", "StackBoxes", "PicSome"].every((t) => onPlay.includes(t)), `home: Google Play tag on ${onPlay.join(", ")}`);
     // Wait for smooth scrolling and the fade-ins to settle, otherwise the hover lands on a moving target.
     await page.waitForFunction((n) => document.querySelectorAll("#work .reveal.in").length >= n, projectCount);
     await page.waitForTimeout(1000);
@@ -99,6 +101,10 @@ try {
     await page.locator("#connect").scrollIntoViewIfNeeded();
     await page.waitForTimeout(1200);
     expect(await page.locator("a[href^='mailto:']").isVisible(), "home: connect section shows the email link");
+    expect(await page.locator("#connect a[href='https://play.google.com/store/apps/developer?id=George-Taylor+Solomon']").isVisible(),
+        "home: connect section links to the Google Play developer page");
+    const rowBorders = await page.locator("[data-connect-row]").evaluateAll((rows) => rows.map((r) => getComputedStyle(r).borderBottomStyle));
+    expect(rowBorders.length >= 3 && rowBorders.every((b) => b === "none"), `home: connect rows have no dividing lines (${rowBorders.join(", ")})`);
     const londonHour = () => new Intl.DateTimeFormat("en-GB", { hour: "2-digit", timeZone: "Europe/London" }).format(new Date());
     const edgeClock = page.locator("[data-edge-clock]");
     expect(await edgeClock.isVisible(), "home: location and time sit on the right edge on desktop");
